@@ -794,3 +794,5 @@ for (size_t i = 0; i < vector_types.size(); ++i)
 add_binary("weibull_rng");
 add("wishart_log",DOUBLE_T, MATRIX_T,DOUBLE_T,MATRIX_T);
 add("wishart_rng",MATRIX_T, DOUBLE_T,MATRIX_T);
+//------------------------------------- Included by AngelBerihuete 
+add("eval_chebyshev",DOUBLE_T,VECTOR_T,DOUBLE_T);
