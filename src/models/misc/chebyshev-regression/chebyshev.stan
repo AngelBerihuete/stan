@@ -1,26 +1,24 @@
 data {
   int<lower=1> N;
   int<lower=1> K;
-  real x[N];
-  real y[N];
+  real x_obs[N];
+  real y_obs[N];
 }
 
 parameters {
 vector[K] coefs;
 }
 
-transformed parameters {
-vector[K] y_estim;
-for(i in 1:N)
-	y_estim[i] <- eval_chebyshev(coefs, x[i]);
-}
-
 model {
-vector[K] mu;
-matrix[K,K] Sigma;
-Sigma <- diag_matrix(rep_vector(1, K));
-mu <- rep_vector(0, K);
-coefs ~ multi_normal(mu, Sigma);
-for(i in 1:N)
-  y_estim[i] ~ normal(y[i], Sigma[1,1]);
+	vector[K] mu;
+	matrix[K,K] Sigma;
+	real y_estim;
+	mu <- rep_vector(0, K);
+	Sigma <- diag_matrix(rep_vector(1, K));
+	coefs ~ multi_normal(mu, Sigma);
+	for(i in 1:N){
+		y_estim <- eval_chebyshev(coefs, x_obs[i]);
+		y_obs[i] ~ normal(y_estim, Sigma[1,1]);
+		// increment_log_prob(normal_log(y_estim[i], y[i], Sigma[1,1]));
+	}
 }
