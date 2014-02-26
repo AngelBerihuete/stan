@@ -1,16 +1,22 @@
 #ifndef __STAN__MATH__FUNCTIONS__EVAL_CHEBYSHEV_HPP__
 #define __STAN__MATH__FUNCTIONS__EVAL_CHEBYSHEV_HPP__
 
-#include <boost/math/tools/polynomial.hpp>
+#include <boost/math/tools/promotion.hpp>
 
 namespace stan {
 	namespace math {
-		template<typename T1>
-		inline T1
-		eval_chebyshev(const std::vector<T1> a, const T1 x) {
-			return boost::math::tools::evaluate_chebyshev(a,x);
+		template <typename T1, typename T2>
+		inline typename boost::math::tools::promote_args<T1,T2>
+		eval_chebyshev(const std::vector<T1>& a, const T2& x) {
+		typename boost::math::tools::promote_args<T1,T2> yk2 = 0, yk1 = 0, yk = 0;
+			for(int i = a.size() - 1; i >= 1; --i) { 
+  				yk2 = yk1; yk1 = yk; 
+  				yk = 2 * x * yk1 - yk2 + a[i]; 
+			} 
+		return a[0] / 2 + yk * x - yk1; 
 		}
 	}
 }
-
 #endif
+
+

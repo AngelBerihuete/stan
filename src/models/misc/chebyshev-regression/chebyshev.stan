@@ -19,6 +19,5 @@ model {
 	for(i in 1:N){
 		y_estim <- eval_chebyshev(coefs, x_obs[i]);
 		y_obs[i] ~ normal(y_estim, Sigma[1,1]);
-		// increment_log_prob(normal_log(y_estim[i], y[i], Sigma[1,1]));
 	}
 }
