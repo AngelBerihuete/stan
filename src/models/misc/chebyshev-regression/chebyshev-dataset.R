@@ -5,7 +5,7 @@ f <- function(x) cos(3*pi*x)/(1+25*(x-0.25)^2) # funtion to approximate
 f <- function(x) x^2 # funtion to approximate
 
 # Make a standard Chebyshev interpolation
-y <- evalongrid(f,10) # f evaluation on 50 knots (Chebyshev grid)
+y <- evalongrid(f,3) # f evaluation on 50 knots (Chebyshev grid)
 coef <- chebcoef(y) # Chebyshev coefs
 
 # coef
@@ -24,11 +24,10 @@ tch <- Vectorize(function(x) chebeval(x,coef)) # Given Chebyshev coefficients,
 # evaluate the interpolation in x point.
 
 # check interpolation
-x <- chebknots(2)[[1]] # using 50 knots for clarity in the process
-chebknots(2)[[1]] # using 50 knots for clarity in the process
-plot(x,f(x), type = 'l')
+x <- chebknots(3)[[1]] # using 50 knots for clarity in the process
+plot(x,f(x), type = 'p')
 lines(x,tch(x),col='blue')
 
-N <- length(x)
-dump(c("N","x","y"),"chebyshev.data.R")
+K <- N <- length(x)
+dump(c("N", "K","x","y"),"chebyshev.dataset.R")
 
