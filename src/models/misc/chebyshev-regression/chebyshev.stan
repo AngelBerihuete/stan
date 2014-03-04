@@ -13,8 +13,6 @@ model {
 	vector[K] mu;
 	matrix[K,K] Sigma;
 	real y_estim;
-	mu <- rep_vector(0, K);
-	Sigma <- diag_matrix(rep_vector(1, K));
 	coefs ~ multi_normal(mu, Sigma);
 	for(i in 1:N){
 		y_estim <- eval_chebyshev(coefs, x_obs[i]);
