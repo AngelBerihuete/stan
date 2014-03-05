@@ -11,11 +11,13 @@ vector[K] coefs;
 
 model {
 	vector[K] mu;
-	cholesky_factor_cov[K] L;
+	mu <- rep_vector(1,K);
+	matrix[K,K] Omega;
+	Omega <- diag(mu);
 	real y_estim;
-	coefs ~ multi_normal(mu, L*L');
+	coefs ~ multi_normal(mu, Omega);
 	for(i in 1:N){
 		y_estim <- eval_chebyshev(coefs, x_obs[i]);
-		y_obs[i] ~ normal(y_estim, Sigma[1,1]);
+		y_obs[i] ~ normal(y_estim, Omega[1,1]);
 	}
 }
