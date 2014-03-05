@@ -13,7 +13,6 @@ vector_types.push_back(DOUBLE_T);                  // scalar
 vector_types.push_back(expr_type(DOUBLE_T,1U));    // std vector
 vector_types.push_back(VECTOR_T);                  // Eigen vector
 vector_types.push_back(ROW_VECTOR_T);              // Eigen row vector
-vector_types.push_back(Eigen::Matrix<T, dynamic, 1>); //vector for chebyshev
 
 std::vector<expr_type> int_vector_types;
 int_vector_types.push_back(INT_T);                  // scalar
@@ -798,7 +797,7 @@ add("wishart_rng",MATRIX_T, DOUBLE_T,MATRIX_T);
 
 //------------------------------------- Included by AngelBerihuete
 
-add("eval_chebyshev",DOUBLE_T,vector_types[5], DOUBLE_T);
+add("eval_chebyshev",DOUBLE_T, VECTOR_T, DOUBLE_T);
 // add("eval_chebyshev", DOUBLE_T, DOUBLE_T, DOUBLE_T);
 
 // for (size_t i = 0; i < vector_types.size(); ++i){
