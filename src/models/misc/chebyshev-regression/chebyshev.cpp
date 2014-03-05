@@ -156,8 +156,6 @@ public:
             stan::math::initialize(mu, DUMMY_VAR__);
             stan::math::initialize(Sigma, DUMMY_VAR__);
             stan::math::initialize(y_estim, DUMMY_VAR__);
-            stan::math::assign(mu, rep_vector(0,K));
-            stan::math::assign(Sigma, diag_matrix(rep_vector(1,K)));
             lp_accum__.add(multi_normal_log<propto__>(coefs, mu, Sigma));
             for (int i = 1; i <= N; ++i) {
                 stan::math::assign(y_estim, eval_chebyshev(coefs,get_base1(x_obs,i,"x_obs",1)));

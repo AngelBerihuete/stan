@@ -797,8 +797,8 @@ add("wishart_rng",MATRIX_T, DOUBLE_T,MATRIX_T);
 
 //------------------------------------- Included by AngelBerihuete
 
-// add("eval_chebyshev",DOUBLE_T, expr_type(DOUBLE_T,1U), DOUBLE_T);
-add("eval_chebyshev", DOUBLE_T, VECTOR_T, DOUBLE_T);
+add("eval_chebyshev",DOUBLE_T, VECTOR_T, DOUBLE_T);
+// add("eval_chebyshev", DOUBLE_T, DOUBLE_T, DOUBLE_T);
 
 // for (size_t i = 0; i < vector_types.size(); ++i){
 // 	add("eval_chebyshev",
