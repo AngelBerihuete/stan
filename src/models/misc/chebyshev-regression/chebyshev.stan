@@ -3,6 +3,8 @@ data {
   int<lower=1> K;
   real x_obs[N];
   real y_obs[N];
+  matrix[K,K] Sigma;
+  vector[K] mu;
 }
 
 parameters {
@@ -10,14 +12,10 @@ vector[K] coefs;
 }
 
 model {
-	vector[K] mu;
-	mu <- rep_vector(1,K);
-	matrix[K,K] Omega;
-	Omega <- diag(mu);
 	real y_estim;
-	coefs ~ multi_normal(mu, Omega);
+	coefs ~ multi_normal(mu, Sigma);
 	for(i in 1:N){
 		y_estim <- eval_chebyshev(coefs, x_obs[i]);
-		y_obs[i] ~ normal(y_estim, Omega[1,1]);
+		y_obs[i] ~ normal(y_estim, Sigma[1,1]);
 	}
 }

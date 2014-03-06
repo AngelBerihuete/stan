@@ -22,6 +22,22 @@ std::vector<expr_type> primitive_types;
 primitive_types.push_back(INT_T);
 primitive_types.push_back(DOUBLE_T);
 
+
+add("eval_chebyshev",DOUBLE_T, VECTOR_T, DOUBLE_T);
+// add("eval_chebyshev", DOUBLE_T, DOUBLE_T, DOUBLE_T);
+
+// for (size_t i = 0; i < vector_types.size(); ++i){
+//  add("eval_chebyshev",
+//  DOUBLE_T, //result 
+//  vector_types[i],DOUBLE_T);
+// }
+
+//add("sum",INT_T,expr_type(INT_T,1));
+//add("sum",DOUBLE_T,expr_type(DOUBLE_T,1));
+//add("sum",DOUBLE_T,VECTOR_T);
+//add("sum",DOUBLE_T,ROW_VECTOR_T);
+//add("sum",DOUBLE_T,MATRIX_T);
+
 add_unary("abs");
 add("abs",INT_T,INT_T);
 add_unary("acos");
@@ -794,20 +810,3 @@ for (size_t i = 0; i < vector_types.size(); ++i)
 add_binary("weibull_rng");
 add("wishart_log",DOUBLE_T, MATRIX_T,DOUBLE_T,MATRIX_T);
 add("wishart_rng",MATRIX_T, DOUBLE_T,MATRIX_T);
-
-//------------------------------------- Included by AngelBerihuete
-
-add("eval_chebyshev",DOUBLE_T, VECTOR_T, DOUBLE_T);
-// add("eval_chebyshev", DOUBLE_T, DOUBLE_T, DOUBLE_T);
-
-// for (size_t i = 0; i < vector_types.size(); ++i){
-// 	add("eval_chebyshev",
-// 	DOUBLE_T, //result 
-// 	vector_types[i],DOUBLE_T);
-// }
-
-//add("sum",INT_T,expr_type(INT_T,1));
-//add("sum",DOUBLE_T,expr_type(DOUBLE_T,1));
-//add("sum",DOUBLE_T,VECTOR_T);
-//add("sum",DOUBLE_T,ROW_VECTOR_T);
-//add("sum",DOUBLE_T,MATRIX_T);
