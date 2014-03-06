@@ -28,6 +28,7 @@ private:
     vector<double> y_obs;
     matrix_d Sigma;
     vector_d mu;
+    double sigma;
 public:
     chebyshev_model(stan::io::var_context& context__,
         std::ostream* pstream__ = 0)
@@ -66,28 +67,6 @@ public:
         for (size_t i_0__ = 0; i_0__ < y_obs_limit_0__; ++i_0__) {
             y_obs[i_0__] = vals_r__[pos__++];
         }
-        context__.validate_dims("data initialization", "Sigma", "matrix_d", context__.to_vec(K,K));
-        stan::math::validate_non_negative_index("Sigma", "K", K);
-        stan::math::validate_non_negative_index("Sigma", "K", K);
-        Sigma = matrix_d(K,K);
-        vals_r__ = context__.vals_r("Sigma");
-        pos__ = 0;
-        size_t Sigma_m_mat_lim__ = K;
-        size_t Sigma_n_mat_lim__ = K;
-        for (size_t n_mat__ = 0; n_mat__ < Sigma_n_mat_lim__; ++n_mat__) {
-            for (size_t m_mat__ = 0; m_mat__ < Sigma_m_mat_lim__; ++m_mat__) {
-                Sigma(m_mat__,n_mat__) = vals_r__[pos__++];
-            }
-        }
-        stan::math::validate_non_negative_index("mu", "K", K);
-        mu = vector_d(K);
-        context__.validate_dims("data initialization", "mu", "vector_d", context__.to_vec(K));
-        vals_r__ = context__.vals_r("mu");
-        pos__ = 0;
-        size_t mu_i_vec_lim__ = K;
-        for (size_t i_vec__ = 0; i_vec__ < mu_i_vec_lim__; ++i_vec__) {
-            mu[i_vec__] = vals_r__[pos__++];
-        }
 
         // validate data
         try { 
@@ -100,7 +79,16 @@ public:
         } catch (std::domain_error& e) { 
             throw std::domain_error(std::string("Invalid value of K: ") + std::string(e.what()));
         };
+        stan::math::validate_non_negative_index("Sigma", "K", K);
+        stan::math::validate_non_negative_index("Sigma", "K", K);
+        Sigma = matrix_d(K,K);
+        stan::math::validate_non_negative_index("mu", "K", K);
+        mu = vector_d(K);
+        sigma = double(0);
 
+        stan::math::assign(sigma, 1.0);
+        stan::math::assign(mu, rep_vector(1.0,K));
+        stan::math::assign(Sigma, diag_matrix(mu));
 
         // validate transformed data
 
@@ -168,14 +156,14 @@ public:
         const char* function__ = "validate transformed params %1%";
         (void) function__; // dummy to suppress unused var warning
         // model body
-        {
-            T__ y_estim;
-            (void) y_estim;   // dummy to suppress unused var warning
-            stan::math::initialize(y_estim, DUMMY_VAR__);
-            lp_accum__.add(multi_normal_log<propto__>(coefs, mu, Sigma));
-            for (int i = 1; i <= N; ++i) {
-                stan::math::assign(y_estim, eval_chebyshev(coefs,get_base1(x_obs,i,"x_obs",1)));
-                lp_accum__.add(normal_log<propto__>(get_base1(y_obs,i,"y_obs",1), y_estim, get_base1(Sigma,1,1,"Sigma",1)));
+        lp_accum__.add(multi_normal_log<propto__>(coefs, mu, Sigma));
+        for (int i = 1; i <= N; ++i) {
+            {
+                T__ y_estim;
+                (void) y_estim;   // dummy to suppress unused var warning
+                stan::math::initialize(y_estim, DUMMY_VAR__);
+                stan::math::assign(y_estim, 1.0);
+                lp_accum__.add(normal_log<propto__>(get_base1(y_obs,i,"y_obs",1), y_estim, sigma));
             }
         }
 
