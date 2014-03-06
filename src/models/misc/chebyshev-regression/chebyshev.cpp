@@ -162,7 +162,7 @@ public:
                 T__ y_estim;
                 (void) y_estim;   // dummy to suppress unused var warning
                 stan::math::initialize(y_estim, DUMMY_VAR__);
-                stan::math::assign(y_estim, 1.0);
+                stan::math::assign(y_estim, eval_chebyshev(coefs,get_base1(x_obs,i,"x_obs",1)));
                 lp_accum__.add(normal_log<propto__>(get_base1(y_obs,i,"y_obs",1), y_estim, sigma));
             }
         }

@@ -4,7 +4,6 @@
 #include <boost/math/tools/promotion.hpp>
 #include <stan/math/matrix/Eigen.hpp>
 
-
 namespace stan {
 	namespace math {
 		template <typename T1, typename T2>
