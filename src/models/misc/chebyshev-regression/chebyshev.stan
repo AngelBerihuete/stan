@@ -9,7 +9,7 @@ transformed data {
 	matrix[K,K] Sigma;
 	vector[K] mu;
 	real sigma;
-	sigma <- 1.0;
+	sigma <- 0.01;
 	mu <- rep_vector(1.0, K);
 	Sigma <- diag_matrix(mu);
 }

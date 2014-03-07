@@ -6,7 +6,7 @@ f <- function(x) x^2 # funtion to approximate
 
 # Make a standard Chebyshev interpolation
 y_obs <- evalongrid(f,20) # f evaluation on 50 knots (Chebyshev grid)
-coef <- chebcoef(y) # Chebyshev coefs
+coef <- chebcoef(y_obs) # Chebyshev coefs
 y_obs <- as.numeric(y_obs)
 # coef
 #  [1] -2.986001e-02 -2.612925e-02  1.683954e-02  4.622027e-02 -3.076064e-02

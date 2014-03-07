@@ -86,7 +86,7 @@ public:
         mu = vector_d(K);
         sigma = double(0);
 
-        stan::math::assign(sigma, 1.0);
+        stan::math::assign(sigma, 0.01);
         stan::math::assign(mu, rep_vector(1.0,K));
         stan::math::assign(Sigma, diag_matrix(mu));
 
