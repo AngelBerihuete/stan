@@ -1,8 +1,6 @@
 #ifndef __STAN__MATH_HPP__
 #define __STAN__MATH_HPP__
 
-<<<<<<< HEAD
-
 #include "stan/math/rep_array.hpp"
 #include "stan/math/rep_vector.hpp"
 #include "stan/math/rep_row_vector.hpp"
@@ -72,13 +70,12 @@
 #include "stan/math/functions/sub.hpp"
 #include "stan/math/functions/sum.hpp"
 #include "stan/math/functions/value_of.hpp"
-=======
+
 #include <stan/math/rep_array.hpp>
 #include <stan/math/rep_vector.hpp>
 #include <stan/math/rep_row_vector.hpp>
 #include <stan/math/rep_matrix.hpp>
 #include <stan/math/constants.hpp>
 #include <stan/math/functions.hpp>
->>>>>>> upstream/develop
 
 #endif
